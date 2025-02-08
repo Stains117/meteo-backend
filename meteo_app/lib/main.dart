@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(MeteoApp());
@@ -12,39 +13,81 @@ class MeteoApp extends StatefulWidget {
 }
 
 class _MeteoAppState extends State<MeteoApp> {
-  String city = "Roma"; // Città di default
+  String city = "Roma"; // Default
   Map<String, dynamic>? weatherData;
-  bool isLoading = true; // Stato di caricamento
+  bool isLoading = true;
 
-  Future<void> fetchWeather() async {
-    setState(() {
-      isLoading = true; // Mostra il caricamento durante la richiesta
-    });
+  Future<void> getCurrentLocation() async {
+    try {
+      bool serviceEnabled;
+      LocationPermission permission;
+
+      // Controlla se il GPS è abilitato
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        setState(() {
+          weatherData = {"error": "GPS non attivo"};
+          isLoading = false;
+        });
+        return;
+      }
+
+      // Controlla i permessi
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          setState(() {
+            weatherData = {"error": "Permesso negato"};
+            isLoading = false;
+          });
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        setState(() {
+          weatherData = {"error": "Permessi GPS negati permanentemente"};
+          isLoading = false;
+        });
+        return;
+      }
+
+      // Ottiene la posizione attuale
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      
+      fetchWeather(position.latitude, position.longitude);
+    } catch (e) {
+      setState(() {
+        weatherData = {"error": "Errore GPS: ${e.toString()}"};
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> fetchWeather(double lat, double lon) async {
+    // 🔹 AGGIORNATO: Usiamo il backend Railway invece del localhost
+    final url = Uri.parse("https://meteo-backend-production.up.railway.app/weather?lat=$lat&lon=$lon");
 
     try {
-      final url = Uri.parse("http://10.0.2.2:5000/weather?city=$city"); // Se usi un emulatore Android
-      // Se sei su dispositivo reale, usa l'IP locale del tuo PC es. "http://192.168.1.100:5000/weather?city=$city"
-
       final response = await http.get(url);
-
-      print("Risposta dal server: ${response.body}"); // Debug nel terminale
 
       if (response.statusCode == 200) {
         setState(() {
           weatherData = json.decode(response.body);
+          isLoading = false;
         });
       } else {
         setState(() {
-          weatherData = {"error": "Errore nel caricamento dei dati"};
+          weatherData = {"error": "Errore nel caricamento"};
+          isLoading = false;
         });
       }
     } catch (e) {
       setState(() {
-        weatherData = {"error": "Errore di connessione: ${e.toString()}"};
-      });
-    } finally {
-      setState(() {
-        isLoading = false; // Nasconde il caricamento dopo la richiesta
+        weatherData = {"error": "Errore di connessione"};
+        isLoading = false;
       });
     }
   }
@@ -52,7 +95,7 @@ class _MeteoAppState extends State<MeteoApp> {
   @override
   void initState() {
     super.initState();
-    fetchWeather();
+    getCurrentLocation(); // Ottieni la posizione all'avvio
   }
 
   @override
@@ -63,22 +106,25 @@ class _MeteoAppState extends State<MeteoApp> {
         appBar: AppBar(title: Text("Meteo App")),
         body: Center(
           child: isLoading
-              ? CircularProgressIndicator() // Mostra il caricamento
+              ? CircularProgressIndicator()
               : weatherData == null
                   ? Text("Nessun dato ricevuto", style: TextStyle(fontSize: 20))
                   : weatherData!.containsKey("error")
-                      ? Text(weatherData!["error"], style: TextStyle(fontSize: 20, color: Colors.red))
+                      ? Text(weatherData!["error"],
+                          style: TextStyle(fontSize: 20, color: Colors.red))
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Città: ${weatherData!['city']}", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                            Text("Temperatura: ${weatherData!['temperature']}°C", style: TextStyle(fontSize: 22)),
-                            Text("Umidità: ${weatherData!['humidity']}%", style: TextStyle(fontSize: 18)),
-                            Text("Vento: ${weatherData!['wind_speed']} m/s", style: TextStyle(fontSize: 18)),
+                            Text("Temperatura: ${weatherData!['temperature']}°C",
+                                style: TextStyle(fontSize: 22)),
+                            Text("Umidità: ${weatherData!['humidity']}%",
+                                style: TextStyle(fontSize: 18)),
+                            Text("Vento: ${weatherData!['wind_speed']} m/s",
+                                style: TextStyle(fontSize: 18)),
                             SizedBox(height: 20),
                             ElevatedButton(
-                              onPressed: fetchWeather,
-                              child: Text("Aggiorna"),
+                              onPressed: getCurrentLocation,
+                              child: Text("Aggiorna posizione"),
                             ),
                           ],
                         ),

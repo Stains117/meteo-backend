@@ -36,6 +36,8 @@ def get_weather():
     lon = request.args.get('lon')
     city = request.args.get('city')
 
+    print(f"Ricevuta richiesta: city={city}, lat={lat}, lon={lon}")  # Log per debug su Railway
+
     # Se l'utente fornisce il nome della città, la converte in coordinate
     if city and not lat and not lon:
         city = city.lower()
@@ -47,6 +49,12 @@ def get_weather():
     # Se non ci sono né lat/lon né città valide, restituisci errore
     if not lat or not lon:
         return jsonify({"error": "Devi fornire latitudine/longitudine o il nome di una città"}), 400
+
+    try:
+        lat = float(lat)
+        lon = float(lon)
+    except ValueError:
+        return jsonify({"error": "Latitudine e longitudine devono essere numeri"}), 400
 
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
@@ -67,6 +75,8 @@ def get_weather():
 
         return jsonify({
             "city": city.capitalize() if city else "Coordinate personalizzate",
+            "latitude": lat,
+            "longitude": lon,
             "temperature": current.Variables(0).Value(),
             "humidity": current.Variables(1).Value(),
             "wind_speed": current.Variables(2).Value()
@@ -77,4 +87,4 @@ def get_weather():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
-
+    
