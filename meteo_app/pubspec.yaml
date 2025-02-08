@@ -33,3 +33,9 @@ flutter:
   #       - asset: fonts/CustomFont-Regular.ttf
   #       - asset: fonts/CustomFont-Bold.ttf
   #         weight: 700
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.6
+  geolocator: ^9.0.2  # Versione più recente
