@@ -1,0 +1,35 @@
+name: meteo_app
+description: "A new Flutter project."
+publish_to: 'none' # Previene la pubblicazione accidentale su pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  http: ^0.13.6 # Pacchetto per effettuare richieste API
+  geolocator: ^13.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Se vuoi aggiungere immagini o icone personalizzate, decommenta questa sezione e aggiungi i file nella cartella assets:
+  # assets:
+  #   - assets/images/
+  
+  # Per aggiungere font personalizzati, decommenta questa sezione e aggiungi i file nella cartella fonts:
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: fonts/CustomFont-Regular.ttf
+  #       - asset: fonts/CustomFont-Bold.ttf
+  #         weight: 700
