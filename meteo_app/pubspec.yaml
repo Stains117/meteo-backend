@@ -14,8 +14,8 @@ dependencies:
   http: ^0.13.5
   geolocator: ^13.0.2
   permission_handler: ^11.0.1  # Aggiunto per gestire i permessi GPS
-  flutter_map: ^4.0.0
-  latlong2: ^0.8.2
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.0
 
 dev_dependencies:
   flutter_test:
@@ -25,10 +25,3 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-map_dependencies:
-  flutter:
-    sdk: flutter
-  http: ^0.13.5
-  geolocator: ^10.1.0
-  flutter_map: ^6.1.0
-  latlong2: ^0.9.0
