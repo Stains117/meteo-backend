@@ -12,8 +12,10 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   http: ^0.13.5
-  geolocator: ^10.1.0
+  geolocator: ^13.0.2
   permission_handler: ^11.0.1  # Aggiunto per gestire i permessi GPS
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.2
 
 dev_dependencies:
   flutter_test:
