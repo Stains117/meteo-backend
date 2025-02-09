@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(MeteoApp());
@@ -17,6 +18,25 @@ class _MeteoAppState extends State<MeteoApp> {
   Map<String, dynamic>? weatherData;
   bool isLoading = true;
 
+  Future<void> checkLocationPermission() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        setState(() {
+          weatherData = {"error": "Permessi negati permanentemente. Attivali dalle impostazioni."};
+          isLoading = false;
+        });
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      openAppSettings(); // Apre le impostazioni per attivare i permessi manualmente
+    }
+  }
+
   Future<void> getCurrentLocation() async {
     try {
       bool serviceEnabled;
@@ -26,37 +46,19 @@ class _MeteoAppState extends State<MeteoApp> {
       serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         setState(() {
-          weatherData = {"error": "GPS non attivo"};
+          weatherData = {"error": "GPS non attivo. Attivalo e riprova."};
           isLoading = false;
         });
         return;
       }
 
       // Controlla i permessi
-      permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          setState(() {
-            weatherData = {"error": "Permesso negato"};
-            isLoading = false;
-          });
-          return;
-        }
-      }
-
-      if (permission == LocationPermission.deniedForever) {
-        setState(() {
-          weatherData = {"error": "Permessi GPS negati permanentemente"};
-          isLoading = false;
-        });
-        return;
-      }
+      await checkLocationPermission();
 
       // Ottiene la posizione attuale
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      
+
       fetchWeather(position.latitude, position.longitude);
     } catch (e) {
       setState(() {
@@ -67,8 +69,7 @@ class _MeteoAppState extends State<MeteoApp> {
   }
 
   Future<void> fetchWeather(double lat, double lon) async {
-    // 🔹 AGGIORNATO: Usiamo il backend Railway invece del localhost
-   final url = Uri.parse("https://meteo-backend.onrender.com/weather?lat=$lat&lon=$lon");
+    final url = Uri.parse("https://meteo-backend.onrender.com/weather?lat=$lat&lon=$lon");
 
     try {
       final response = await http.get(url);
@@ -95,7 +96,7 @@ class _MeteoAppState extends State<MeteoApp> {
   @override
   void initState() {
     super.initState();
-    getCurrentLocation(); // Ottieni la posizione all'avvio
+    getCurrentLocation(); // Ottieni la posizione all’avvio
   }
 
   @override
@@ -110,8 +111,18 @@ class _MeteoAppState extends State<MeteoApp> {
               : weatherData == null
                   ? Text("Nessun dato ricevuto", style: TextStyle(fontSize: 20))
                   : weatherData!.containsKey("error")
-                      ? Text(weatherData!["error"],
-                          style: TextStyle(fontSize: 20, color: Colors.red))
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(weatherData!["error"],
+                                style: TextStyle(fontSize: 20, color: Colors.red)),
+                            SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: checkLocationPermission,
+                              child: Text("Concedi permessi GPS"),
+                            ),
+                          ],
+                        )
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
