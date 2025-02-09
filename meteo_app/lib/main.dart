@@ -68,7 +68,7 @@ class _MeteoAppState extends State<MeteoApp> {
 
   Future<void> fetchWeather(double lat, double lon) async {
     // 🔹 AGGIORNATO: Usiamo il backend Railway invece del localhost
-    final url = Uri.parse("https://meteo-backend-production.up.railway.app/weather?lat=$lat&lon=$lon");
+   final url = Uri.parse("https://meteo-backend.onrender.com/weather?lat=$lat&lon=$lon");
 
     try {
       final response = await http.get(url);
