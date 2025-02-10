@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.1.0" type="conditional_incidents">
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 22">
+        <fix-replace
+            description="Delete @TargetApi"
+            replacement="">
+            <range
+                file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/PermissionUtils.java"
+                startOffset="5273"
+                endOffset="5287"/>
+        </fix-replace>
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/PermissionUtils.java"
+            line="103"
+            column="5"
+            startOffset="5273"
+            endLine="103"
+            endColumn="19"
+            endOffset="5287"/>
+        <map>
+            <condition minGE="ffffffffffe00000"/>
+        </map>
+    </incident>
+
+    <incident
+        id="InlinedApi"
+        severity="warning"
+        message="">
+        <fix-data minSdk="ffffffffffe00000" requiresApi="ffffffffc0000000"/>
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/PermissionUtils.java"
+            line="355"
+            column="41"
+            startOffset="21470"
+            endLine="355"
+            endColumn="81"
+            endOffset="21510"/>
+        <map>
+            <api-levels id="minSdk"
+                value="ffffffffffe00000"/>
+            <api-levels id="requiresApi"
+                value="ffffffffc0000000"/>
+            <entry
+                name="message"
+                string="Field requires API level 31 (current min is %1$s): `android.Manifest.permission#SCHEDULE_EXACT_ALARM`"/>
+        </map>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 23">
+        <fix-replace
+            description="Delete @RequiresApi"
+            replacement="">
+            <range
+                file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/PermissionUtils.java"
+                startOffset="30037"
+                endOffset="30078"/>
+        </fix-replace>
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/PermissionUtils.java"
+            line="538"
+            column="5"
+            startOffset="30037"
+            endLine="538"
+            endColumn="46"
+            endOffset="30078"/>
+        <map>
+            <condition minGE="ffffffffffc00000"/>
+        </map>
+    </incident>
+
+    <incident
+        id="QueryPermissionsNeeded"
+        severity="warning"
+        message="Consider adding a `&lt;queries>` declaration to your manifest when calling this \&#xA;method; see https://g.co/dev/packagevisibility for details">
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/ServiceManager.java"
+            line="173"
+            column="23"
+            startOffset="6932"
+            endLine="173"
+            endColumn="44"
+            endOffset="6953"/>
+        <map>
+            <entry
+                name="queryAll"
+                boolean="false"/>
+        </map>
+    </incident>
+
+    <incident
+        id="QueryPermissionsNeeded"
+        severity="warning"
+        message="Consider adding a `&lt;queries>` declaration to your manifest when calling this \&#xA;method; see https://g.co/dev/packagevisibility for details">
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/ServiceManager.java"
+            line="175"
+            column="23"
+            startOffset="7045"
+            endLine="175"
+            endColumn="44"
+            endOffset="7066"/>
+        <map>
+            <entry
+                name="queryAll"
+                boolean="false"/>
+        </map>
+    </incident>
+
+</incidents>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.1.0" type="conditional_incidents">
+
+    <incident
+        id="MissingPermission"
+        severity="error"
+        message="">
+        <fix-data missing="android.permission.POST_NOTIFICATIONS" message="Missing permissions required by NotificationManagerCompat.notify: %1$s" lastApi="2147483647"/>
+        <location
+            file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/location/BackgroundNotification.java"
+            line="100"
+            column="13"
+            startOffset="3675"
+            endLine="100"
+            endColumn="72"
+            endOffset="3734"/>
+        <map>
+            <entry
+                name="requirement"
+                string="android.permission.POST_NOTIFICATIONS"/>
+            <entry
+                name="message"
+                string="Missing permissions required by NotificationManagerCompat.notify: %1$s"/>
+        </map>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 28">
+        <fix-replace
+            description="Delete @TargetApi"
+            replacement="">
+            <range
+                file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/location/LocationManagerClient.java"
+                startOffset="7784"
+                endOffset="7798"/>
+        </fix-replace>
+        <location
+            file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/location/LocationManagerClient.java"
+            line="226"
+            column="3"
+            startOffset="7784"
+            endLine="226"
+            endColumn="17"
+            endOffset="7798"/>
+        <map>
+            <condition minGE="fffffffff8000000"/>
+        </map>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 24">
+        <fix-replace
+            description="Delete @TargetApi"
+            replacement="">
+            <range
+                file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/location/NmeaClient.java"
+                startOffset="972"
+                endOffset="1005"/>
+        </fix-replace>
+        <location
+            file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/location/NmeaClient.java"
+            line="30"
+            column="3"
+            startOffset="972"
+            endLine="30"
+            endColumn="36"
+            endOffset="1005"/>
+        <map>
+            <condition minGE="ffffffffff800000"/>
+        </map>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 24">
+        <fix-replace
+            description="Delete @TargetApi"
+            replacement="">
+            <range
+                file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/location/NmeaClient.java"
+                startOffset="1061"
+                endOffset="1094"/>
+        </fix-replace>
+        <location
+            file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/location/NmeaClient.java"
+            line="32"
+            column="3"
+            startOffset="1061"
+            endLine="32"
+            endColumn="36"
+            endOffset="1094"/>
+        <map>
+            <condition minGE="ffffffffff800000"/>
+        </map>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 29">
+        <fix-replace
+            description="Delete @RequiresApi"
+            replacement="">
+            <range
+                file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/permission/PermissionManager.java"
+                startOffset="6540"
+                endOffset="6581"/>
+        </fix-replace>
+        <location
+            file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/permission/PermissionManager.java"
+            line="197"
+            column="3"
+            startOffset="6540"
+            endLine="197"
+            endColumn="44"
+            endOffset="6581"/>
+        <map>
+            <condition minGE="fffffffff0000000"/>
+        </map>
+    </incident>
+
+    <incident
+        id="TrulyRandom"
+        severity="warning"
+        message="Potentially insecure random numbers on Android 4.3 and older. Read https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html for more info.">
+        <location
+            file="${:geolocator_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/geolocator/location/FusedLocationClient.java"
+            line="150"
+            column="5"
+            startOffset="5803"
+            endLine="150"
+            endColumn="17"
+            endOffset="5815"/>
+        <map>
+            <condition minLT="fffffffffffc0000"/>
+        </map>
+    </incident>
+
+</incidents>
