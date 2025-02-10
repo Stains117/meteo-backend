@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.baseflow.geolocator.MethodCallHandlerImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-02-09T22:22:59" hostname="DESKTOP-FI3F7I9" time="0.808">
-  <properties/>
-  <testcase name="onGetCurrentPosition_setsPendingLocationClient" classname="com.baseflow.geolocator.MethodCallHandlerImplTest" time="0.791"/>
-  <testcase name="onCancelGetCurrentPosition_clearsPendingLocationClient" classname="com.baseflow.geolocator.MethodCallHandlerImplTest" time="0.003"/>
-  <testcase name="onGetCurrentPosition_getsPosition" classname="com.baseflow.geolocator.MethodCallHandlerImplTest" time="0.013"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
