@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.1.0" type="incidents">
+
+    <incident
+        id="SwitchIntDef"
+        severity="warning"
+        message="Switch statement on an `int` with known associated constant missing case `PermissionConstants.PERMISSION_GROUP_ASSISTANT`">
+        <fix-data cases="com.baseflow.permissionhandler.PermissionConstants.PERMISSION_GROUP_ASSISTANT"/>
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/PermissionUtils.java"
+            line="107"
+            column="9"
+            startOffset="5479"
+            endLine="107"
+            endColumn="15"
+            endOffset="5485"/>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 19">
+        <fix-data conditional="true"/>
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/ServiceManager.java"
+            line="109"
+            column="20"
+            startOffset="4319"
+            endLine="109"
+            endColumn="71"
+            endOffset="4370"/>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is never &lt; 19">
+        <fix-data conditional="false"/>
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/ServiceManager.java"
+            line="121"
+            column="13"
+            startOffset="4797"
+            endLine="121"
+            endColumn="57"
+            endOffset="4841"/>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 19">
+        <fix-data conditional="true"/>
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/ServiceManager.java"
+            line="144"
+            column="13"
+            startOffset="5553"
+            endLine="144"
+            endColumn="52"
+            endOffset="5592"/>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is never &lt; 19">
+        <fix-data conditional="false"/>
+        <location
+            file="${:permission_handler_android*debug*sourceProvider*0*javaDir*0}/com/baseflow/permissionhandler/ServiceManager.java"
+            line="156"
+            column="13"
+            startOffset="6104"
+            endLine="156"
+            endColumn="93"
+            endOffset="6184"/>
+    </incident>
+
+    <incident
+        id="AndroidGradlePluginVersion"
+        severity="warning"
+        message="A newer version of com.android.tools.build:gradle than 8.0.0 is available: 8.8.0. (There is also a newer version of 8.0.𝑥 available, if upgrading to 8.8.0 is difficult: 8.0.2)">
+        <fix-alternatives>
+            <fix-replace
+                description="Change to 8.8.0"
+                family="Update versions"
+                oldString="8.0.0"
+                replacement="8.8.0"/>
+            <fix-replace
+                description="Change to 8.0.2"
+                family="Update versions"
+                robot="true"
+                independent="true"
+                oldString="8.0.0"
+                replacement="8.0.2"/>
+        </fix-alternatives>
+        <location
+            file="${:permission_handler_android*projectDir}/build.gradle"
+            line="11"
+            column="9"
+            startOffset="161"
+            endLine="11"
+            endColumn="57"
+            endOffset="209"/>
+    </incident>
+
+</incidents>

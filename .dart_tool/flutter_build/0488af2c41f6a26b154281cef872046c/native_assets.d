@@ -1,0 +1,1 @@
+ C:\\Users\\davic\\meteoapp3\\meteo_app\\.dart_tool\\flutter_build\\0488af2c41f6a26b154281cef872046c\\native_assets.yaml: 

@@ -1,0 +1,88 @@
+C:\Users\davic\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-4.6.1\android\src\main\java\com\baseflow\geolocator\location\BackgroundNotification.java:100: Error: Missing permissions required by NotificationManagerCompat.notify: android.permission.POST_NOTIFICATIONS [MissingPermission]
+            notificationManager.notify(notificationId, builder.build());
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "MissingPermission":
+   This check scans through your code and libraries and looks at the APIs
+   being used, and checks this against the set of permissions required to
+   access those APIs. If the code using those APIs is called at runtime, then
+   the program will crash.
+
+   Furthermore, for permissions that are revocable (with targetSdkVersion 23),
+   client code must also be prepared to handle the calls throwing an exception
+   if the user rejects the request for permission at runtime.
+
+C:\Users\davic\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-4.6.1\android\build.gradle:11: Warning: A newer version of com.android.tools.build:gradle than 7.4.2 is available: 8.8.0 [AndroidGradlePluginVersion]
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "AndroidGradlePluginVersion":
+   This detector looks for usage of the Android Gradle Plugin where the
+   version you are using is not the current stable release. Using older
+   versions is fine, and there are cases where you deliberately want to stick
+   with an older version. However, you may simply not be aware that a more
+   recent version is available, and that is what this lint check helps find.
+
+C:\Users\davic\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-4.6.1\android\build.gradle:44: Warning: A newer version of com.google.android.gms:play-services-location than 21.2.0 is available: 21.3.0 [GradleDependency]
+    implementation 'com.google.android.gms:play-services-location:21.2.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\davic\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-4.6.1\android\build.gradle:45: Warning: A newer version of androidx.core:core than 1.13.0 is available: 1.15.0 [GradleDependency]
+    implementation 'androidx.core:core:1.13.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "GradleDependency":
+   This detector looks for usages of libraries where the version you are using
+   is not the current stable release. Using older versions is fine, and there
+   are cases where you deliberately want to stick with an older version.
+   However, you may simply not be aware that a more recent version is
+   available, and that is what this lint check helps find.
+
+C:\Users\davic\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-4.6.1\android\src\main\java\com\baseflow\geolocator\location\BackgroundNotification.java:42: Warning: Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. R.foo.bar) than by name (e.g. getIdentifier("bar", "foo", null)). [DiscouragedApi]
+        return context.getResources().getIdentifier(iconName, defType, context.getPackageName());
+                                      ~~~~~~~~~~~~~
+
+   Explanation for issues of type "DiscouragedApi":
+   Discouraged APIs are allowed and are not deprecated, but they may be unfit
+   for common use (e.g. due to slow performance or subtle behavior).
+
+C:\Users\davic\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-4.6.1\android\src\main\java\com\baseflow\geolocator\location\FusedLocationClient.java:150: Warning: Potentially insecure random numbers on Android 4.3 and older. Read https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html for more info. [TrulyRandom]
+    SecureRandom random = new SecureRandom();
+    ~~~~~~~~~~~~
+
+   Explanation for issues of type "TrulyRandom":
+   Key generation, signing, encryption, and random number generation may not
+   receive cryptographically strong values due to improper initialization of
+   the underlying PRNG on Android 4.3 and below.
+
+   If your application relies on cryptographically secure random number
+   generation you should apply the workaround described in
+   https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.
+   html .
+
+   This lint rule is mostly informational; it does not accurately detect
+   whether cryptographically secure RNG is required, or whether the workaround
+   has already been applied. After reading the blog entry and updating your
+   code if necessary, you can disable this lint issue.
+
+   https://goo.gle/TrulyRandom
+   https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html
+
+C:\Users\davic\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-4.6.1\android\src\main\java\com\baseflow\geolocator\permission\PermissionManager.java:30: Warning: Do not place Android context classes in static fields (static reference to PermissionManager which has field activity pointing to Activity); this is a memory leak [StaticFieldLeak]
+  private static PermissionManager permissionManagerInstance = null;
+          ~~~~~~
+
+   Explanation for issues of type "StaticFieldLeak":
+   A static field will leak contexts.
+
+   Non-static inner classes have an implicit reference to their outer class.
+   If that outer class is for example a Fragment or Activity, then this
+   reference means that the long-running handler/loader/task will hold a
+   reference to the activity which prevents it from getting garbage
+   collected.
+
+   Similarly, direct field references to activities and fragments from these
+   longer running instances can cause leaks.
+
+   ViewModel classes should never point to Views or non-application Contexts.
+
+1 errors, 6 warnings
